@@ -2,13 +2,13 @@
 import { onMount } from "svelte/internal";
 
 
-	let titles	= ['#', 'Coin', 'Price', 'Price Change', '24h Volume'];
+	let titles	= ['#', 'Moneda', 'Precio', 'Cambio de Precio', 'Volumen 24hs'];
 	let coins = [];
 	let filteredCoins = [];
 	let ref = null;
 
 	const loadCoins = async () => {
-		const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+		const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=ars&order=market_cap_desc&per_page=100&page=1&sparkline=false');
 	const data = await res.json();
 	console.log(data);
 	coins = data;
@@ -36,11 +36,11 @@ return null;
 <div class="container">
 	<div class="row">
 
-		<h1>Tabla de Bitcoin</h1>
+		<h1>Cotización Bitcoins en Pesos</h1>
 		<input
 			type="text"
 			class="form-control bg-dark text-white rounded-0 border-0 my-4"
-			placeholder="Search Your Coin"
+			placeholder="Búsqueda de Moneda"
 			on:keyup={({target: {value}}) => searchCoin(value) }
 			bind:this={ref}
 		/>
@@ -65,14 +65,14 @@ return null;
 					{coin.symbol}
 				</span>
 				<td>
-					$ {coin.current_price.toLocaleString()}
+					AR$ {coin.current_price.toLocaleString()}
 				</td>
 				<td class={coin.price_change_percentage_24h > 0
 						? "text-success" : "text-danger"}>
 					{coin.price_change_percentage_24h} %
 				</td>
 				<td>
-					$ {coin.total_volume.toLocaleString()}
+					AR$ {coin.total_volume.toLocaleString()}
 			</td>
 	</tr>
 		{/each}
